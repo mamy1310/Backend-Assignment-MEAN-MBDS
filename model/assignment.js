@@ -1,12 +1,12 @@
 let mongoose = require('mongoose');
 let aggregatePaginate = require("mongoose-aggregate-paginate-v2");
 let Schema = mongoose.Schema;
-
 let AssignmentSchema = Schema({
     id: Number,
     dateDeRendu: Date,
     nom: String,
-    rendu: Boolean
+    rendu: Boolean,
+    matiere: Schema.Types.Mixed
 });
 AssignmentSchema.plugin(aggregatePaginate);
 
