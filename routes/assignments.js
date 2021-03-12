@@ -6,11 +6,17 @@ function getAssignments(req, res){
     Assignment.aggregatePaginate(aggregateQuery,
         {
             page: parseInt(req.query.page) || 1,
-            limit: parseInt(req.query.limit) || 10,
+            limit: parseInt(req.query.limit) || 30,
         },
         (err, assignments) => {
             if (err) {
                 res.send(err);
+            }
+            if (req.query.rendu !== undefined) {
+                const a = assignments;
+                a.docs = assignments.docs.filter(assignment => assignment.rendu === (req.query.rendu === 'true'));
+                res.send(a);
+                return;
             }
             res.send(assignments);
         }
