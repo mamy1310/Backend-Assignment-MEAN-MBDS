@@ -6,6 +6,7 @@ let AssignmentSchema = Schema({
     dateDeRendu: Date,
     nom: String,
     rendu: Boolean,
+    note: Number,
     matiere: Schema.Types.Mixed
 });
 AssignmentSchema.plugin(aggregatePaginate);
