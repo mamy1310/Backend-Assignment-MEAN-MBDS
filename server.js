@@ -2,7 +2,7 @@ let express = require('express');
 let app = express();
 let bodyParser = require('body-parser');
 let assignment = require('./routes/assignments');
-
+let user = require('./routes/users');
 let mongoose = require('mongoose');
 mongoose.Promise = global.Promise;
 //mongoose.set('debug', true);
@@ -30,7 +30,7 @@ mongoose.connect(uri, options)
 // Pour accepter les connexions cross-domain (CORS)
 app.use(function (req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
-  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept,x-access-token");
   res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
   next();
 });
@@ -43,7 +43,6 @@ let port = process.env.PORT || 8010;
 
 // les routes
 const prefix = '/api';
-
 app.route(prefix + '/assignments')
   .get(assignment.getAssignments);
 
@@ -56,6 +55,14 @@ app.route(prefix + '/assignments')
   .post(assignment.postAssignment)
   .put(assignment.updateAssignment);
 
+app.route(prefix + '/register')
+  .post(user.createUser)
+app.route(prefix + '/auth')
+  .get(user.connectUserByToken)
+app.route(prefix + '/login')
+  .post(user.login)
+app.route(prefix + '/logout')
+  .post(user.logout)     
 // On démarre le serveur
 app.listen(port, "0.0.0.0");
 console.log('Serveur démarré sur http://localhost:' + port);
