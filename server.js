@@ -3,6 +3,7 @@ let app = express();
 let bodyParser = require('body-parser');
 let assignment = require('./routes/assignments');
 let user = require('./routes/users');
+const matiere = require('./routes/matieres')
 let mongoose = require('mongoose');
 mongoose.Promise = global.Promise;
 //mongoose.set('debug', true);
@@ -43,26 +44,31 @@ let port = process.env.PORT || 8010;
 
 // les routes
 const prefix = '/api';
+
+    // Assignments
 app.route(prefix + '/assignments')
   .get(assignment.getAssignments);
-
 app.route(prefix + '/assignments/:id')
   .get(assignment.getAssignment)
   .delete(assignment.deleteAssignment);
-
-
 app.route(prefix + '/assignments')
   .post(assignment.postAssignment)
   .put(assignment.updateAssignment);
 
+    // Users
 app.route(prefix + '/register')
-  .post(user.createUser)
+  .post(user.createUser);
 app.route(prefix + '/auth')
-  .get(user.connectUserByToken)
+  .get(user.connectUserByToken);
 app.route(prefix + '/login')
-  .post(user.login)
+  .post(user.login);
 app.route(prefix + '/logout')
-  .post(user.logout)     
+  .post(user.logout);
+
+    // Matieres
+app.route(prefix + '/matieres')
+    .get(matiere.getMatieres);
+
 // On démarre le serveur
 app.listen(port, "0.0.0.0");
 console.log('Serveur démarré sur http://localhost:' + port);

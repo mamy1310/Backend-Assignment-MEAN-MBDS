@@ -51,10 +51,6 @@ function postAssignment(req, res){
     assignment.note = req.body.note;
     assignment.matiere=req.body.matiere;
 
-    console.log("POST assignment reçu :");
-    console.log(req.body)
-    console.log(assignment)
-
     assignment.save( (err) => {
         if(err){
             res.send('cant post assignment ', err);
@@ -66,7 +62,6 @@ function postAssignment(req, res){
 // Update d'un assignment (PUT)
 function updateAssignment(req, res) {
     console.log("UPDATE recu assignment : ");
-    console.log(req.body);
     Assignment.findByIdAndUpdate(req.body._id, req.body, {new: true}, (err, assignment) => {
         if (err) {
             console.log(err);
