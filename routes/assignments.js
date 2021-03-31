@@ -21,14 +21,6 @@ function getAssignments(req, res){
             res.send(assignments);
         }
     );
-
-    /*Assignment.find((err, assignments) => {
-        if(err){
-            res.send(err)
-        }
-
-        res.send(assignments);
-    });*/
 }
 
 // Récupérer un assignment par son id (GET)
@@ -86,6 +78,27 @@ function deleteAssignment(req, res) {
     })
 }
 
+function search(req, res) {
+    Assignment.find(constructFindQuery(req), (err, assignment) => {
+        if(err){
+            res.send(err)
+        }
+
+        res.send(assignment);
+    });
+}
+
+function constructFindQuery(req) {
+    const query = {};
+    if (req.query.dateDeRenduMax) {
+        query.dateDeRendu = { $lte: req.query.dateDeRenduMax };
+    }
+    if (req.query.nom) {
+        query.nom = "/.*"+req.query.nom+".*/i";
+    }
+    return query;
+}
 
 
-module.exports = { getAssignments, postAssignment, getAssignment, updateAssignment, deleteAssignment };
+
+module.exports = { getAssignments, search, postAssignment, getAssignment, updateAssignment, deleteAssignment };

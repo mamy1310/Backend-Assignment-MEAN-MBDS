@@ -54,6 +54,8 @@ app.route(prefix + '/assignments/:id')
 app.route(prefix + '/assignments')
   .post(assignment.postAssignment)
   .put(assignment.updateAssignment);
+app.route(prefix + '/assignments/search')
+    .get(assignment.search);
 
     // Users
 app.route(prefix + '/register')
