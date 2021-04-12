@@ -55,7 +55,7 @@ function postAssignment(req, res){
         if(err){
             res.send('cant post assignment ', err);
         }
-        res.json({ message: `${assignment.nom} saved!`})
+        res.json({ message: `${assignment.nom} enregistré!`})
     })
 }
 
@@ -73,7 +73,7 @@ function updateAssignment(req, res) {
     console.log(matiere);
     console.log(dateDeRendu);
     if(nom == null||nom == undefined||nom==""){
-        res.status(403).send({message:"Nom doit etre renseigne"});
+        res.status(403).send({message:"Nom doit être renseigne"});
         return;
     }
     if(matiere == null||matiere == undefined||matiere==""){
@@ -87,7 +87,7 @@ function updateAssignment(req, res) {
 
 
     if(note<0 || note>20){
-        res.status(403).send({message:"Note doit etre valide"});
+        res.status(403).send({message:"Note doit être valide"});
         return;
     }
     if(!rendu){
@@ -95,7 +95,7 @@ function updateAssignment(req, res) {
         
     }else{
         if(note == null||note == undefined||note==""){
-            res.status(403).send({message:"Note doit etre saisie avant d'etre rendu"});
+            res.status(403).send({message:"Note doit être saisie avant d'être rendu"});
             return;
         }
     }
