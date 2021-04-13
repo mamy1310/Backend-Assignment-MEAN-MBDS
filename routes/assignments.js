@@ -128,9 +128,9 @@ function search(req, res) {
 
 function constructFindQuery(req) {
     const query = {};
-    if (req.query.dateDeRenduMax) {
-        query.dateDeRendu = { $lte: req.query.dateDeRenduMax };
-    }
+    /*if (req.query.dateDeRendu) {
+        query.dateDeRendu = { $lte: req.query.dateDeRendu };
+    }*/
     if (req.query.nom) {
         query.nom = "/.*"+req.query.nom+".*/i";
     }
