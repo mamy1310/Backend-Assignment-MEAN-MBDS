@@ -2,7 +2,7 @@ let Assignment = require('../model/assignment');
 
 // Récupérer tous les assignments (GET)
 function getAssignments(req, res){
-    const aggregateQuery = Assignment.aggregate();
+    const aggregateQuery = Assignment.aggregate([{ $match: { nom: { $regex: '.*' + req.query.search + '.*' },rendu:(req.query.rendu === 'true')  } }]);
     Assignment.aggregatePaginate(aggregateQuery,
         {
             page: parseInt(req.query.page) || 1,
@@ -12,12 +12,12 @@ function getAssignments(req, res){
             if (err) {
                 res.send(err);
             }
-            if (req.query.rendu !== undefined) {
+           /* if (req.query.rendu !== undefined) {
                 const a = assignments;
                 a.docs = assignments.docs.filter(assignment => assignment.rendu === (req.query.rendu === 'true'));
                 res.send(a);
                 return;
-            }
+            }*/
             res.send(assignments);
         }
     );
