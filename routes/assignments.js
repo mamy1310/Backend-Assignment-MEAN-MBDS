@@ -50,6 +50,7 @@ function postAssignment(req, res){
     assignment.rendu = req.body.rendu;
     assignment.note = req.body.note;
     assignment.matiere=req.body.matiere;
+    assignment.remarque=req.body.remarque;
 
     assignment.save( (err) => {
         if(err){
@@ -92,6 +93,7 @@ function updateAssignment(req, res) {
     }
     if(!rendu){
         req.body.note = null;
+        req.body.remarque = '';
         
     }else{
         if(note == null||note == undefined||note==""){
